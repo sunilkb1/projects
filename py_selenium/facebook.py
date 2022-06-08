@@ -61,7 +61,6 @@ class Facebook:
                                                                                   '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div[1]')))
         logout.click()
         WebDriverWait(self.driver, 30).until_not(EC.title_is(self.title))
-        time.sleep(3)
 
     def cleanup(self):
         self.driver.close()
