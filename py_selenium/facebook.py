@@ -49,37 +49,16 @@ class Facebook:
         print("----------------------------------------------------------------------")
         user = re.search(r'What\'s on your mind,(.*?)\?', self.driver.page_source).group(1)
         print("Hello {}".format(user))
-        birthday = self.driver.find_element(By.XPATH,
-                                       '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[3]/div/div/div[1]/div/div[1]/div/div[2]/div/a/div[1]/div[2]/div/div/div')
+        birthday = WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located((By.XPATH,
+                                       '/html/body/div[1]/div/div[1]/div/div[3]/div/div/div[1]/div[1]/div/div[3]/div/div/div[1]/div/div[1]/div/div[2]/div/a/div[1]/div[2]/div/div/div')))
         print("Please note: {}".format(birthday.text))
         print("----------------------------------------------------------------------")
 
     def logout(self):
-        drop_down = self.driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[1]/span/div')
-
-        try:
-            drop_down.click()
-        except:
-            print("sunkb-123 inside except")
-            drop_down.click()
-
-        i = 0
-        logout = 0
-        while i in range(4):
-            try:
-                time.sleep(1)
-                logout = self.driver.find_element(By.XPATH,
-                                             '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div[1]')
-                break
-            except:
-                print("sunkb-123 inside expect : i is {}".format(i))
-                pass
-
-        else:
-            logout = self.driver.find_element(By.XPATH,
-                                         '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div[1]')
-            print("sunkb-123 inside else : i is {}".format(i))
-
+        drop_down = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[1]/span/div')))
+        drop_down.click()
+        logout = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                  '/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]/div/div[1]')))
         logout.click()
         WebDriverWait(self.driver, 30).until_not(EC.title_is(self.title))
         time.sleep(3)
