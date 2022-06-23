@@ -33,17 +33,12 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        h_map = dict(zip(nums,range(len(nums))))
-        print(h_map)
-        for i in range(1, len(nums)):
-                comb_list = list(itertools.combinations(nums,i))
-                for j in comb_list:
-                    if sum(j) == target:
-                        x = list(map(lambda y: h_map[y], j))
-                        return(x)
-                        
-                        
-
+        values = {}
+        for idx, value in enumerate(nums):
+            if target - value in values:
+                return[idx, values[target - value]]
+            else:
+                values[value] = idx
 
 nums=[1,3,4,5,6,9]
 target=13
